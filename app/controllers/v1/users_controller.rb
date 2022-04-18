@@ -37,6 +37,15 @@ class V1::UsersController < ApplicationController
         end
     end
 
+    def showmodal
+        @user = User.find(params[:user_id])
+        if @user.destroy
+            render json: @user, status: :ok
+        else
+            render json: {errors: @user.errors.full_messages}
+        end
+    end
+
     private
     def user_params
         params.required(:user).permit(:username, :password)
