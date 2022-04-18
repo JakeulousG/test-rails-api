@@ -6,8 +6,12 @@ class V1::ContactsController < ApplicationController
 
     def create
         @contact = Contact.new(contact_params)
-        @contact.save
-        render json: @contact, status: :created
+        if @contact.save
+            render json: @contact, status: :created
+        else
+            render json: {errors: @contact.errors.full_messages}
+        end
+        
     end
 
     def update
@@ -15,7 +19,7 @@ class V1::ContactsController < ApplicationController
         if contact.update(contact_params)
             render json: contact, status: :created
         else
-            render json: contact, status: :bad_request
+            render json: {errors: @contact.errors.full_messages}
         end
     end
 

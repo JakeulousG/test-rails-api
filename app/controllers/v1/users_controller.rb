@@ -14,7 +14,7 @@ class V1::UsersController < ApplicationController
         if @user.save
             render json: @user, status: :ok
         else
-            render json: @user, status: :bad_request
+            render json: {errors: @user.errors.full_messages}
         end
     end
 
@@ -23,6 +23,8 @@ class V1::UsersController < ApplicationController
         if @user
             @user.update(user_params)
             render json: @user, status: :ok
+        else
+            render json: {errors: @user.errors.full_messages}
         end
     end
 
@@ -31,7 +33,7 @@ class V1::UsersController < ApplicationController
         if @user.destroy
             render json: @user, status: :ok
         else
-            render json: @user, status: :bad_request
+            render json: {errors: @user.errors.full_messages}
         end
     end
 
