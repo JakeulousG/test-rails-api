@@ -39,7 +39,7 @@ class V1::UsersController < ApplicationController
 
     def showmodal
         @user = User.find(params[:user_id])
-        if @user.destroy
+        if @user.present
             render json: @user, status: :ok
         else
             render json: {errors: @user.errors.full_messages}

@@ -32,6 +32,14 @@ class V1::ContactsController < ApplicationController
         end
     end
     
+    def showmodal
+        @contact = Contact.find(params[:contact_id])
+        if @contact.present?
+            render json: @contact, status: :ok
+        else
+            render json: {errors: @contact.errors.full_messages}
+        end
+    end
     private
     def contact_params
         params.require(:contact).permit(:first_name, :last_name, :email)
